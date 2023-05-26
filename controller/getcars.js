@@ -2,7 +2,8 @@ const carModel = require("../model/cars.model");
 
 const getCars = async(req , res)=>{
     const {price , color , mileage , } = req.query;
-    const {userID} = req.body
+    const {id} = req.params;
+    const userID = id;
      try {
         let cars = await carModel.find();
         if(price){
