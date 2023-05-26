@@ -36,7 +36,7 @@ const createUser =  async (req, res) => {
       const user = await userModel.find({ email: req.body.email , password : req.body.password });
   
       if(user.length >= 1){
-          res.send({message:'Login successfull' , status: true,  user})
+          res.send({message:'Login successfull' , status: true,  user : user[0]})
       }
       else{
           res.status(401).json({
