@@ -2,7 +2,8 @@ const carModel = require("../model/cars.model");
 
 const getCars = async(req , res)=>{
     const {price , color , mileage , } = req.query;
-    const {userID} = req.body
+    const {id} = req.params;
+    let userID = id;
      try {
         let cars = await carModel.find();
         if(price){
@@ -84,7 +85,8 @@ const getAllCars = async(req , res)=>{
 }
 
 const getCarsHonda = async (req , res)=>{
-    const {userID} = req.body
+    const {id} = req.params;
+    let userID = id;
 
     try {
         const car = await carModel.find({userId : userID, model_year :'2015' , name :'Honda City'});
