@@ -103,12 +103,10 @@ const getCarsHonda = async (req , res)=>{
 }
 
 const getSingleCar = async (req , res)=>{
-    const {userID} = req.body
     const {id} = req.params
 
     try {
-        const car = await carModel.find({userID : userID, _id : id});
-        
+        const car = await carModel.find({ _id : id});
         res.send({
             cars : car[0] ,
             status : true
@@ -123,4 +121,24 @@ const getSingleCar = async (req , res)=>{
 }
 
 
-module.exports = {getCars , getCarsHonda , getSingleCar , getAllCars}
+const getCarsHondaForEveryOne = async (req , res)=>{
+
+    try {
+        const car = await carModel.find({ model_year :2015 , name :'Honda City'});
+        
+        res.send({
+            cars : car ,
+            status : true
+        })
+
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+            status: false,
+          });
+    }
+}
+
+
+
+module.exports = {getCars , getCarsHonda , getSingleCar , getAllCars , getCarsHondaForEveryOne}
