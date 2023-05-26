@@ -42,6 +42,47 @@ const getCars = async(req , res)=>{
 
 }
 
+const getAllCars = async(req , res)=>{
+    const {price , color , mileage , } = req.query;
+     try {
+        const cars = await carModel.find();
+        if(price){
+           cars = await carModel.find({ price : {$lte : price}})
+           if(color){
+               cars = await carModel.find({ price : {$lte : price} , colors : color})
+               if(mileage){
+                   cars = await carModel.find({ price : {$lte : price} , colors : color , mileage : {$gte : mileage}})
+               }
+           }
+           if(mileage){
+            cars = await carModel.find({ price : {$lte : price} , mileage : {$gte : mileage}})
+           }
+        }
+        else if(color){
+            cars = await carModel.find({  colors : color});
+            if(mileage){
+            cars = await carModel.find({ colors : color , mileage : {$gte : mileage}})
+    
+            }
+        }
+        else if(mileage){
+            cars = await carModel.find({  mileage : {$gte : mileage}})
+    
+        }
+    
+        res.send({
+            status:true , 
+            cars
+        })
+     } catch (error) {
+        res.status(404).json({
+            message: error.message,
+            status: false,
+          });
+     }
+
+}
+
 const getCarsHonda = async (req , res)=>{
     const {userID} = req.body
 
@@ -82,4 +123,4 @@ const getSingleCar = async (req , res)=>{
 }
 
 
-module.exports = {getCars , getCarsHonda , getSingleCar}
+module.exports = {getCars , getCarsHonda , getSingleCar , getAllCars}
