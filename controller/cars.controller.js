@@ -35,7 +35,8 @@ const delCar = async(req , res)=>{
 
 
   const delMulCar = async(req , res)=>{
-    const arr = req.body;
+    const {id} = req.params;
+    const arr = id.split(',')
     try {
        for(let x of arr){
             async function delCar(id){

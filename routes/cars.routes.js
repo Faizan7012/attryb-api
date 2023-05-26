@@ -9,7 +9,7 @@ carRoute.get('/allcars', getAllCars)
 carRoute.get('/honda', getCarsHonda)
 carRoute.get('/all/honda', getCarsHondaForEveryOne)
 carRoute.post('/create' , createCar)
-carRoute.delete('/manydel' , delMulCar)
+carRoute.delete('/manydel/:id' , delMulCar)
 carRoute.delete('/del/:id' , delCar)
 carRoute.put('/edit/:id' , editCar)
 
