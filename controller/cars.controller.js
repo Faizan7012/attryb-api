@@ -37,8 +37,8 @@ const delCar = async(req , res)=>{
   const delMulCar = async(req , res)=>{
     const {arr} = req.body;
     try {
-       arr.forEach(async(ele)=>{ 
-          await carModel.findByIdAndDelete(ele)
+       arr.forEach((ele)=>{ 
+          carModel.findByIdAndDelete(ele)
        })
       res.send({
           status: true , 
