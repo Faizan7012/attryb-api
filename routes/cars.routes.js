@@ -6,7 +6,7 @@ const carRoute = express.Router();
 carRoute.get('/', getCars)
 carRoute.get('/single/:id', getSingleCar)
 carRoute.get('/allcars', getAllCars)
-carRoute.get('/honda/:id', getCarsHonda)
+carRoute.get('/honda', getCarsHonda)
 carRoute.get('/all/honda', getCarsHondaForEveryOne)
 carRoute.post('/create' , createCar)
 carRoute.delete('/manydel/:id' , delMulCar)
