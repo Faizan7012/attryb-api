@@ -35,13 +35,13 @@ const delCar = async(req , res)=>{
 
 
   const delMulCar = async(req , res)=>{
-    const {arr} = req.body;
+    const arr = req.body;
     try {
-       for(let i=0;i<arr.length;i++){
+       for(let x of arr){
             async function delCar(id){
              await  carModel.findByIdAndDelete(id)
             }
-            delCar(arr[i])
+            delCar(x)
        }
       res.send({
           status: true , 
