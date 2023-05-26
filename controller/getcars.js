@@ -4,7 +4,7 @@ const getCars = async(req , res)=>{
     const {price , color , mileage , } = req.query;
     const {userID} = req.body
      try {
-        const cars = await carModel.find();
+        let cars = await carModel.find();
         if(price){
            cars = await carModel.find({userId : userID, price : {$lte : price}})
            if(color){
@@ -45,7 +45,7 @@ const getCars = async(req , res)=>{
 const getAllCars = async(req , res)=>{
     const {price , color , mileage , } = req.query;
      try {
-        const cars = await carModel.find();
+        let cars = await carModel.find();
         if(price){
            cars = await carModel.find({ price : {$lte : price}})
            if(color){
