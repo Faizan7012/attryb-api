@@ -5,7 +5,8 @@ const formSchema = new Schema({
   email: {type: String,required: true,},
   destination: {type: String,required: true,},
   travelors: {type: Number,required: true,},
-  budget: {type: Number,required: true,}
+  budget: {type: Number,required: true,},
+  per_person: {type: Number,required: true,}
 });
 
 const formModel = model("form", formSchema);
