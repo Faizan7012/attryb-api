@@ -1,16 +1,27 @@
 const express = require("express");
 const { createCar, delCar, delMulCar, editCar } = require("../controller/cars.controller");
-const { getCars, getCarsHonda, getSingleCar, getAllCars, getCarsHondaForEveryOne } = require("../controller/getcars");
+const { getSingleCar, getAllCars, getCarsHondaForEveryOne } = require("../controller/getcars");
 const carRoute = express.Router();
 
-carRoute.get('/:id', getCars)
+// get all cars available
+carRoute.get('/', getAllCars)
+
+// get single car details
 carRoute.get('/single/:id', getSingleCar)
-carRoute.get('/allcars', getAllCars)
-carRoute.get('/honda/:id', getCarsHonda)
+
+// get honda city 2015 model cars
 carRoute.get('/all/honda', getCarsHondaForEveryOne)
+
+// add new second hand cars
 carRoute.post('/create' , createCar)
+
+// del multiple cars in one go
 carRoute.delete('/manydel/:id' , delMulCar)
+
+// del single car
 carRoute.delete('/del/:id' , delCar)
+
+// edit a car
 carRoute.put('/edit/:id' , editCar)
 
 
