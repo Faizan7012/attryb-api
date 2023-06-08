@@ -1,4 +1,5 @@
 const carModel = require("../model/cars.model");
+const Oem_model = require("../model/oem.model");
 
 const getAllCars = async(req , res)=>{
     const {price , color , mileage , } = req.query;
@@ -7,9 +8,9 @@ const getAllCars = async(req , res)=>{
         if(price){
            cars = await carModel.find({ price : {$lte : price}})
            if(color){
-               cars = await carModel.find({ price : {$lte : price} , colors : color})
+               cars = await carModel.find({ price : {$lte : price} , Original_Paint : color})
                if(mileage){
-                   cars = await carModel.find({ price : {$lte : price} , colors : color , mileage : {$gte : mileage}})
+                   cars = await carModel.find({ price : {$lte : price} , Original_Paint : color , mileage : {$gte : mileage}})
                }
            }
            if(mileage){
@@ -17,9 +18,9 @@ const getAllCars = async(req , res)=>{
            }
         }
         else if(color){
-            cars = await carModel.find({  colors : color});
+            cars = await carModel.find({  Original_Paint : color});
             if(mileage){
-            cars = await carModel.find({ colors : color , mileage : {$gte : mileage}})
+            cars = await carModel.find({ Original_Paint : color , mileage : {$gte : mileage}})
     
             }
         }
@@ -47,8 +48,10 @@ const getSingleCar = async (req , res)=>{
 
     try {
         const car = await carModel.find({ _id : id});
+        let OemData=await Oem_model.find({$or:[{car_manufacturers:car[0].car_Manufacturer},{name_of_model:car[0].model}]})
         res.send({
             cars : car[0] ,
+            oem: OemData[0],
             status : true
         })
 
@@ -61,24 +64,49 @@ const getSingleCar = async (req , res)=>{
 }
 
 
-const getCarsHondaForEveryOne = async (req , res)=>{
 
-    try {
-        const car = await carModel.find({ model_year :2015 , name :'Honda City'});
-        
+const getAllCarsDealer = async(req , res)=>{
+    const userID = req.params.id
+    const {price , color , mileage} = req.query;
+     try {
+        let cars = await carModel.find({ userID : userID });
+        if(price){
+           cars = await carModel.find({ userID : userID , price : {$lte : price}})
+           if(color){
+               cars = await carModel.find({ userID : userID , price : {$lte : price} , Original_Paint : color})
+               if(mileage){
+                   cars = await carModel.find({ userID : userID , price : {$lte : price} , Original_Paint : color , mileage : {$gte : mileage}})
+               }
+           }
+           if(mileage){
+            cars = await carModel.find({ userID : userID , price : {$lte : price} , mileage : {$gte : mileage}})
+           }
+        }
+        else if(color){
+            cars = await carModel.find({ userID : userID ,  Original_Paint : color});
+            if(mileage){
+            cars = await carModel.find({ userID : userID , Original_Paint : color , mileage : {$gte : mileage}})
+    
+            }
+        }
+        else if(mileage){
+            cars = await carModel.find({ userID : userID ,  mileage : {$gte : mileage}})
+    
+        }
+    
         res.send({
-            cars : car ,
-            status : true
+            status:true , 
+            cars
         })
-
-    } catch (error) {
+     } catch (error) {
         res.status(404).json({
             message: error.message,
             status: false,
           });
-    }
+     }
+
 }
 
 
 
-module.exports = { getSingleCar , getAllCars , getCarsHondaForEveryOne}
+module.exports = { getSingleCar , getAllCars , getAllCarsDealer}

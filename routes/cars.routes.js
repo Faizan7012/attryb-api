@@ -1,16 +1,16 @@
 const express = require("express");
 const { createCar, delCar, delMulCar, editCar } = require("../controller/cars.controller");
-const { getSingleCar, getAllCars, getCarsHondaForEveryOne } = require("../controller/getcars");
+const { getSingleCar, getAllCars, getAllCarsDealer } = require("../controller/getcars");
 const carRoute = express.Router();
 
 // get all cars available
 carRoute.get('/', getAllCars)
 
+// get dealers posted cars
+carRoute.get('/:id' , getAllCarsDealer)
+
 // get single car details
 carRoute.get('/single/:id', getSingleCar)
-
-// get honda city 2015 model cars
-carRoute.get('/all/honda', getCarsHondaForEveryOne)
 
 // add new second hand cars
 carRoute.post('/create' , createCar)

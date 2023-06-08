@@ -5,6 +5,7 @@ const connection = require('../config/db');
 const userRoute = require('../routes/user.routes');
 const carRoute = require('../routes/cars.routes');
 const formModel = require('../model/form.model');
+const OemRouter = require('../routes/oem.routes');
 
 const app = express();
 
@@ -14,10 +15,11 @@ app.use(express.json());
 
 app.use('/user',userRoute)
 app.use('/car',carRoute)
+app.use('/oem',OemRouter)
 
 
-app.get('/', (req , res)=>{
-    res.send('Welcome in Attryb Api')
+app.get('/', async(req , res)=>{
+    res.send('Welcome to Buycars API Server')
 })
 
 app.post('/form' , async(req , res)=>{
