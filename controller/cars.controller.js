@@ -1,10 +1,10 @@
 const carModel = require("../model/cars.model");
 
 const createCar = async(req , res)=>{
-  const {car , userID} = req.body;
+  const {car , userID , images} = req.body;
 
   try {
-    await carModel.create({...car , userID: userID});
+    await carModel.create({...car , userID: userID , images});
     res.send({
         status: true , 
         message : 'car added successfull'
