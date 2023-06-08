@@ -8,9 +8,9 @@ const getAllCars = async(req , res)=>{
         if(price){
            cars = await carModel.find({ price : {$lte : price}})
            if(color){
-               cars = await carModel.find({ price : {$lte : price} , Original_Paint : color})
+               cars = await carModel.find({ price : {$lte : price} , Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" }})
                if(mileage){
-                   cars = await carModel.find({ price : {$lte : price} , Original_Paint : color , mileage : {$gte : mileage}})
+                   cars = await carModel.find({ price : {$lte : price} , Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" } , mileage : {$gte : mileage}})
                }
            }
            if(mileage){
@@ -18,9 +18,9 @@ const getAllCars = async(req , res)=>{
            }
         }
         else if(color){
-            cars = await carModel.find({  Original_Paint : color});
+            cars = await carModel.find({  Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" }});
             if(mileage){
-            cars = await carModel.find({ Original_Paint : color , mileage : {$gte : mileage}})
+            cars = await carModel.find({ Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" } , mileage : {$gte : mileage}})
     
             }
         }
@@ -73,9 +73,9 @@ const getAllCarsDealer = async(req , res)=>{
         if(price){
            cars = await carModel.find({ userID : userID , price : {$lte : price}})
            if(color){
-               cars = await carModel.find({ userID : userID , price : {$lte : price} , Original_Paint : color})
+               cars = await carModel.find({ userID : userID , price : {$lte : price} , Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" }})
                if(mileage){
-                   cars = await carModel.find({ userID : userID , price : {$lte : price} , Original_Paint : color , mileage : {$gte : mileage}})
+                   cars = await carModel.find({ userID : userID , price : {$lte : price} , Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" } , mileage : {$gte : mileage}})
                }
            }
            if(mileage){
@@ -83,9 +83,9 @@ const getAllCarsDealer = async(req , res)=>{
            }
         }
         else if(color){
-            cars = await carModel.find({ userID : userID ,  Original_Paint : color});
+            cars = await carModel.find({ userID : userID ,  Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" }});
             if(mileage){
-            cars = await carModel.find({ userID : userID , Original_Paint : color , mileage : {$gte : mileage}})
+            cars = await carModel.find({ userID : userID , Original_Paint: { $regex: new RegExp(`${color}`), $options: "i" } , mileage : {$gte : mileage}})
     
             }
         }
