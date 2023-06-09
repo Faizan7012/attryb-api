@@ -20,7 +20,7 @@ app.use('/oem',OemRouter)
 
 app.get('/', async(req , res)=>{
     res.send('Welcome to Buycars API Server')
-})
+});
 
 app.post('/form' , async(req , res)=>{
     try {
