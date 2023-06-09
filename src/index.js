@@ -6,7 +6,6 @@ const userRoute = require('../routes/user.routes');
 const carRoute = require('../routes/cars.routes');
 const formModel = require('../model/form.model');
 const OemRouter = require('../routes/oem.routes');
-
 const app = express();
 
 app.use(cors());
@@ -19,7 +18,7 @@ app.use('/oem',OemRouter)
 
 
 app.get('/', async(req , res)=>{
-    res.send('Welcome to Buycars API Server')
+    res.send('welcome to buycars api')
 });
 
 app.post('/form' , async(req , res)=>{
