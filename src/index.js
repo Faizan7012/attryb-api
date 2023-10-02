@@ -78,7 +78,7 @@ app.get('/form' , async(req , res)=>{
         })
     }
  })
- app.delete('/favnews' , async(req,res)=>{
+ app.delete('/favnews/:id' , async(req,res)=>{
     try {
         let news = await newsModel.findByIdAndDelete(req.params.id)
         res.send({
