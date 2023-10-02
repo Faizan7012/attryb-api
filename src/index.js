@@ -58,10 +58,19 @@ app.get('/form' , async(req , res)=>{
  })
  app.post('/favnews' , async(req,res)=>{
     try {
-        let news = await newsModel.create(req.body);
-        res.send({
-            status: true, 
-        })
+        let ans = await newsModel.find({title : req.body.title});
+        if(ans.length == 0){ 
+            let news = await newsModel.create(req.body);
+            res.send({
+                status: true, 
+            })
+        }
+        else{
+            res.send({
+                status: false, 
+                message : 'Allready added in Favourite'
+            })
+        }
     } catch (error) {
         res.send({
             status:false,
