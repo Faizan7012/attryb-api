@@ -81,11 +81,9 @@ app.get('/form' , async(req , res)=>{
  app.delete('/favnews' , async(req,res)=>{
     try {
         let news = await newsModel.deleteOne({title : req.body.title})
-        let newData = await newsModel.find({userId : req.body.id })
         res.send({
             status: true,
-            data : newData
-        })
+            })
     } catch (error) {
         res.send({
             status:false,
