@@ -80,7 +80,7 @@ app.get('/form' , async(req , res)=>{
  })
  app.delete('/favnews' , async(req,res)=>{
     try {
-        let news = await newsModel.delete({title : req.body.title})
+        let news = await newsModel.deleteOne({title : req.body.title})
         let newData = await newsModel.find({userId : req.body.id })
         res.send({
             status: true,
