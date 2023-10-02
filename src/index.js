@@ -7,6 +7,7 @@ const carRoute = require('../routes/cars.routes');
 const formModel = require('../model/form.model');
 const OemRouter = require('../routes/oem.routes');
 const Oem_model = require('../model/oem.model');
+const newsModel = require('../model/news.model');
 const app = express();
 
 app.use(cors());
@@ -40,6 +41,51 @@ app.get('/form' , async(req , res)=>{
         res.send({status:false , message : error.message})
     }
 })
+
+ app.get('/favnews/:id' , async(req,res)=>{
+    try {
+        let news = await newsModel.find({userId : req.params.id});
+        res.send({
+            status: true, 
+            data : news
+        })
+    } catch (error) {
+        res.send({
+            status:false,
+            message : error.message
+        })
+    }
+ })
+ app.post('/favnews' , async(req,res)=>{
+    try {
+        let news = await newsModel.create(req.body);
+        res.send({
+            status: true, 
+        })
+    } catch (error) {
+        res.send({
+            status:false,
+            message : error.message
+        })
+    }
+ })
+ app.delete('/favnews' , async(req,res)=>{
+    try {
+        let news = await newsModel.delete({title : req.body.title})
+        let newData = await newsModel.find({userId : req.body.id })
+        res.send({
+            status: true,
+            data : newData
+        })
+    } catch (error) {
+        res.send({
+            status:false,
+            message : error.message
+        })
+    }
+ })
+
+
 
 
 
